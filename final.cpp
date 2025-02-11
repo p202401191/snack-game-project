@@ -30,6 +30,8 @@ public:
         frontY = gridHeight / 2;
         snake.clear();
         snake.push_back({frontX, frontY});
+        snake.push_back({frontX-1,frontY}) ;
+        snake.push_back({frontX-2,frontY}) ;
         direction = 1;  
         gameRunning = true;
         score = 0;
