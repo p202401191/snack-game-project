@@ -1,81 +1,86 @@
-## **Analysis of Data Structures** 
+# Snake Game
 
-In the context of the snake game, multiple data structures are employed to facilitate the functioning of the game grid, the movement of the snake, the positioning of food, and the general state of the game. Let us review some of the important data structures that are present in the code. 
+## Overview
+This is a simple snake game built in C++ where you control a snake which moves in a grid and eats food to grow larger. The game is over if the snake collides with the wall or itself. The game has different modes and grid sizes.
 
-### 1. **Grid Representation** 
+---
 
-The game grid is treated as a representation, it is not a data structure on its own. The grid's width and height are determined by the variables gridWidth and gridHeight which are set based on the grid size selected. 
+## Instructions and Rules
 
-- Boundaries of the grid are represented by the symbols “#” and empty space is represented by “ “. 
+1. *Movement*: You control the snake using the following keys:
+    - *W* or *Up Arrow*: Go Up
+    - *S* or *Down Arrow*: Go Down
+    - *A* or *Left Arrow*: Go Left
+    - *D* or *Right Arrow*: Go Right
 
-- The game does not explicitly 2D array the grid. Instead, the game calculations rely on grid positions and drawing of the grid, and these actions are performed on every game loop. 
+2. The game features different modes or easy medium and hard after starting the game.
+ - Before starting the game, one chooses the difficulty,
+    - Easy: Press e
+    - Medium: Press m
+    - Hard: Press h
+  
+   Each mode corresponds with how fast the snake moves.
 
-### 2. **Snake Representation** 
+3. Grid size options:
+   - Small: Press 1 (The 15x15 grid)
+   - Medium: Press 2 (20x25 grid)
+   - Large: Press 3 (25x40 grid)
+   
+4. Goal: Eat food to grow the snake. Food gives you points. The game ends when you crash into a wall or yourself.
 
-The snake is constructed from a *vector of pairs*, more specifically a vector<pair<int, int>> snake;. 
+---  
 
-- Each pair corresponds to one segment of the snake’s body in the grid. 
+## Code Explanation
 
-- The first element from the pair represents the *x-coordinate* (horizontal position) of the snake segment. 
+### Data structures used
 
-- The second element from the pair represents the *y-coordinate* (vertical position) of the snake segment.
+1. **Vector of pairs (vector<pair<int, int>> snake): It contains the cell positions of the snake's body on the grid. The first integer of a pair stands for the x coordinate for one segment of the snake's body, while the second integer is for the y coordinate.
 
-Each time a snake consumes food, its body elongates by adding new segments at the tail of the snake with the command snake.push_back({frontX, frontY}). When the player inputs a command to move the snake, the head of the snake shifts toward the direction of the command, while the rear neck part of the snake gets detached to create the illusion of movement with the command snake.erase(snake.begin()).
+2. *Integer variables* (int frontX, frontY, foodX, foodY): These integers indicate the position of the snake's head and the food on the grid.
 
+3. *Boolean variables* (bool gameRunning): This flag indicates whether the game will be running or not; it will stop when this option becomes false.
 
+4. *Score and high score*:
+   - int score: Keeps track of the current score of the player.
+   - int highscore: Keeps track of the highest score that day. 
 
+### Methods and Functions
 
+1. *initialize()*:
+   - This is the method that initializes the state of the game, such as where the snake starts, and causes the food to appear for the first time in the game.
 
-### 3. **Food Representation**  
+2. *draw()*:
+   - The method clears the screen and takes care of redrawing the whole grid, snake, food, and wall. It shows the score.
 
-The actual food’s position on the grid is specified with the help of two variables, foodX and foodY, which indicate the food's placement on the grid and type. The foodtype variable is given the task of determining if the food is of normal type (denoted by "$") or a special type (denoted by "%").  
+3. *input()*:
+   - Check for the user inputs which control the snake's direction. Movement is controlled by the WASD keys and the arrow keys.
 
-- The snake head collides with the food (frontX == foodX && frontY == foodY) which results in the snake consuming it with both the head and tail. This elevates its length by one segment.    
+4. *update()*:
+   - Updates the position of the snake in connection with the current direction. It sees if there have been any collisions with the wall or with the snake's own body and subsequently updates the game state. It also takes care of eating the food, adding the score, and increasing the size of the snake.
 
-- These are performed respectively in random order. The foodPlace() function repositions the food to a new location where it does not intersect or overlap with any part of the snakes body.   
+5. *foodPlace()*:
+   - Generates a new food item on the grid at a random position that is not occupied by the snake. The food could be chosen randomly from two varieties ($ and %) and has different points.
 
-### 4. **Game State**  
+6. *run()*:
+   - The main game loop itself. This has flow control for the game; it allows the user to set the difficulty level and grid size, initializes the game, and continues calling draw, input, and update functions until the game is over. 
 
-These states of the game are controlled with multiple integer and boolean variables: 
+## Data Structure and Object Structure
 
-- *gameRunning*: This is a boolean statement that is true by default and will only change to false if the snake hits a wall or if it collides with itself.  
+1. *SnakeBody Vector*: A snake's body is represented as a vector of pairs of integers. Each segment of the snake is a pair of integers, with the first integer representing the x-coordinate and the second integer representing the y-coordinate. The head of the snake lies at the front in the vector hierarchy with the rest of the body segments concerned with movement.
 
-- *score*: An integer that is increased every time the player gets a certain amount of points. So, consumption of food by the snake will increase the score and in cases of special food, boost it even more. 
+2. **Game Class (SnakeGame): The SnakeGame class is indeed the class that wraps the entire game. It controls the game state, with the functions for setting the grid size, placing bodies and food, scoring the game, and taling into account the core game logic. The class functions include creating the actual game, updating the game state, handling user input, and displaying the game.
 
-- *highscore*: This integer memory stores the current highest amount of points achieved by the player in the present game state session. 
+---
 
-### 5. **Direction of Movement**
+## Code Structure
 
-The variable ‘direction’ determines the movement of the snake and an integer value is updated according to user input. 
+- *Global Variables*: Some global variables have been defined to control Sonal's snake game, e.g., food type, playerName, se, and sss.
 
-- ‘0’ means *upwards*. 
-- ‘1’ means *rightwards*. 
-- ‘2’ means *downwards*. 
-- ‘3’ means *leftwards*. 
+- *SnakeGame Class*: This class takes care of the logic of the game. It has functions for rendering the game board, getting player input, updating the snake position, processing foods, and managing the state of the game.
 
-Players utilize the arrow keys on the keyboard or ‘W’, ‘A’, ‘S’, ‘D’ to update the direction. The snake may only make a turn if it does not move straight into the body of the snake.
+- *Game Flow*: The main function begins with obtaining the name of the user and the game board. It initiates a game loop, whereas the user can keep playing until they decide otherwise to quit.
 
+---
 
-
-### 6. **Randomization For Food Placement** 
-
-Food placement occurs randomly utilizing the function rand() and the seed is set to the current time using the function srand(time(0)). This ensures that food appears at different positions every time the game is played. The coordinates of the food are verified to ensure they do not cross with the boundaries of the snake's body to avoid the possibility of the snake eating food on it. 
-
-### 7. **Input Handling** 
-
-For detecting player key presses the program loads the library ‘conio.h’ and its functions ‘_kbhit’ and ‘_getch’ which permit instantaneous input during the game. Furthermore, the user has access to the following functions: 
-
-- The function ‘_kbhit’ allows for checking if a key has already been pressed. 
-
-- The command ‘_getch’ allows a user to retrieve the pressed key so that the movement of the snake can be altered according to the users needs. 
-
-### 8. **OS requirement**
-This code is designed for **windows operating system**.
-
-###  **Conclusion** 
-
-In this case the structures of data are not complicated at all, but they are proficient means to achieving important stages of the game. It is also worth noting that the snake is constructed by means of a vector of pairs of coordinates which allow for the addition and removal of sections as well as in combination with the other vectors of food placement and the logic of random direction gives the game its versatility. 
-
-The ease of understanding the data structures, and the basic control flow framework which include, but are not limited to the vector for the snake as well as the mouse make the game easy to play and fast acting.
-
-Nonetheless, the addition of power-ups, levels or diverse food types can be included by introducing new data structures as well as modifying the existing ones.
+## Compatibility
+The game is to be played on *Windows Operating System* via console.
