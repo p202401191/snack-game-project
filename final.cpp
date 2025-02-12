@@ -7,6 +7,7 @@ int foodtype = 0 ;
 string playerName;
 int se ;
 int highscore ;
+int sss ;
 
 class SnakeGame {
 private:
@@ -20,7 +21,7 @@ private:
     int score;
 
 public:
-    SnakeGame() : gridWidth(se), gridHeight(se) 
+    SnakeGame() : gridWidth(se), gridHeight(sss) 
     {
         initialize();
     }
@@ -199,6 +200,9 @@ public:
 };
 
 int main() {
+    cout<<endl ;
+    cout<<"-----------------------SNAKE GAME-------------------------------"<<endl ;
+    cout<<endl<<endl ;
     cout << "Enter Player name: " << endl;
         cin >> playerName;
         cout<<endl ;
@@ -223,10 +227,26 @@ int main() {
         cout<<"->  Press 3 for big grid"<<endl ;
         int gg ;
         cin>>gg ;
-        if(gg==1) se = 15 ;
-        if(gg==2) se = 20 ;
-        if(gg==3) se = 30 ;
-        else se = 15 ;
+        if(gg==1) 
+        {
+            se = 15 ;
+            sss=15 ;
+        }
+        if(gg==2) 
+        {
+            se = 20 ;
+            sss=25 ;
+        }
+        if(gg==3) 
+        {
+            se = 25 ;
+            sss=40 ;
+        }
+        else 
+        {
+            se = 15 ;
+            sss=15 ;
+        }
     SnakeGame game;
     game.run();
     return 0;
