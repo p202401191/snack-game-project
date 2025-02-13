@@ -10,7 +10,7 @@
 3. Gaurav Rathod.
     ID-202401178.
     lab group 3.
-4. Tanish Solanki
+4. Tanish Solanki.
     ID-202401264.
     lab group 4. 
 
