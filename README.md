@@ -1,5 +1,5 @@
 ## ***Snake Game***
-## GROUP NAME= ***The debuggers***.
+## GROUP NAME :- ***The debuggers***.
 ## GROUP MEMBERS NAME,ID AND LAB GROUP: 
 1. Prince Savaliya.
        ID-***202401191***.
